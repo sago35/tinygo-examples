@@ -13,7 +13,17 @@ pin interrupt is still in the PR stage.
 * https://github.com/tinygo-org/tinygo/pull/1094
 * https://github.com/tinygo-org/tinygo/pull/1111
 
+## Build
 
+```
+tinygo flash -target pyportal -size short github.com/sago35/tinygo-examples/pininterrupt
+```
+
+or
+
+```
+tinygo build -o app.uf2 -target pyportal -size short github.com/sago35/tinygo-examples/pininterrupt
+```
 
 ## Environment
 
