@@ -6,7 +6,7 @@ import (
 	"runtime/volatile"
 	"time"
 
-	"github.com/sago35/tinygo-sample/pininterrupt/st7032"
+	"github.com/sago35/tinygo-examples/pininterrupt/st7032"
 )
 
 /*
