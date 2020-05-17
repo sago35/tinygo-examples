@@ -68,7 +68,8 @@ func (d *lv) Add(b bool) {
 // pinInterruptChan notifies an interrupt to a pin via chan bool.
 // p.Get() can get the button state, but the button state at the time of getting it may be old.
 // Therefore, variables of type volatile.Register8 are used to manage them in the function.
-func pinInterruptChan(pin machine.Pin, state *volatile.Register8) <-chan bool {
+func pinInterruptChan(pin machine.Pin) <-chan bool {
+	var state volatile.Register8
 	ch := make(chan bool, 3)
 
 	pin.SetInterrupt(machine.PinToggle, func(p machine.Pin) {
@@ -97,8 +98,7 @@ func main() {
 	led2.Configure(machine.PinConfig{Mode: machine.PinOutput})
 
 	button.Configure(machine.PinConfig{Mode: machine.PinInput})
-	var btnState volatile.Register8
-	chBtn := pinInterruptChan(button, &btnState)
+	chBtn := pinInterruptChan(button)
 
 	machine.I2C0.Configure(machine.I2CConfig{
 		Frequency: machine.TWI_FREQ_400KHZ,
