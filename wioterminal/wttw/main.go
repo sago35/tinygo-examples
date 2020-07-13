@@ -141,4 +141,11 @@ func btnPressed() {
 	tinyfont.Cy += 5
 
 	tinyfont.WriteLine(display, &TinyFont, 3, tinyfont.Cy+5, t.FullText, color.RGBA{0, 0, 0, 255})
+
+	buf, err = httpGet(fmt.Sprintf("http://192.168.1.114:8080/e?url=%s", t.Entities[0]))
+	if err != nil {
+		fmt.Printf("err %s\r\n", err.Error())
+		return
+	}
+	tinyfont.WriteLine(display, &TinyFont, 3, tinyfont.Cy+12+5, t.Entities[0], color.RGBA{0, 0, 0, 255})
 }
