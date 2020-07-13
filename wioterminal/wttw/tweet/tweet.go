@@ -1,6 +1,8 @@
 package tweet
 
-import "github.com/buger/jsonparser"
+import (
+	"github.com/buger/jsonparser"
+)
 
 type Tweet2 struct {
 	UserName      string
@@ -10,6 +12,7 @@ type Tweet2 struct {
 	FavoriteCount int64
 	RetweetCount  int64
 	IsRetweet     bool
+	Entities      []string
 }
 
 func NewTweet2(b []byte) (*Tweet2, error) {
@@ -56,6 +59,10 @@ func NewTweet2(b []byte) (*Tweet2, error) {
 		return nil, err
 	}
 	ret.IsRetweet = isRetweet
+
+	jsonparser.ArrayEach(b, func(value []byte, dataType jsonparser.ValueType, offset int, err error) {
+		ret.Entities = append(ret.Entities, string(value))
+	}, "Entities")
 
 	return ret, nil
 }

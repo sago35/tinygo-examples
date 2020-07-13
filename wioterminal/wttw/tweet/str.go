@@ -1,6 +1,8 @@
 package tweet
 
 var S = []Tweet2{
+	{UserName: "takasago (WFH)", ScreenName: "sago35tk", CreatedAt: "Tue Jul 07 12:27:44 +0000 2020", FullText: "作業風景。 Adafruit Feather M4 Express は TinyGo 開発時にとても使いやすい。色々外付けしないと行けないですが、波形見たりはとても楽。 https://t.co/1KbuV5xB1C", FavoriteCount: 5, RetweetCount: 2, IsRetweet: false, Entities: []string{"http://pbs.twimg.com/media/EcUsfnEU0AAffZv.jpg"}},
+
 	{UserName: "Hiroshi SAKURAI", ScreenName: "anolivetree", CreatedAt: "Sat Jul 11 12:38:52 +0000 2020", FullText: "TinyGoを調べてみたのだけれど、簡単な組み込み機器になら十分つかえそう。あとはこれに優先度順のスケジューラーを載せればTinyGoで良いというケースはかなりあると思う。", FavoriteCount: 2, RetweetCount: 0, IsRetweet: false},
 	{UserName: "VSHN", ScreenName: "vshn_ch", CreatedAt: "Fri Jul 10 09:06:35 +0000 2020", FullText: "Another innovative project in the @golang landscape is TinyGo, a project to build a Go compiler targeting microcontrollers (like the Arduino or the PineTime smartwatch) and also browsers (through WebAssembly or WASM) using LLVM. #vshntimer\n\nhttps://t.co/EgMN2CLLdo", FavoriteCount: 2, RetweetCount: 1, IsRetweet: false},
 	{UserName: "takasago (WFH)", ScreenName: "sago35tk", CreatedAt: "Thu Jul 09 23:49:09 +0000 2020", FullText: "tinyfs の中身は fatfs と littlefs のどちらかを使う形で作られています。 CGO を使って、 Go 側の実装は最低限に抑えているようなので、あとでコードしっかり読もう、って感じです。 tinygo で CGO を積極的に使っているコードは少ない印象なので、とても貴重。\nhttps://t.co/fBfyVVndH8", FavoriteCount: 3, RetweetCount: 1, IsRetweet: false},
