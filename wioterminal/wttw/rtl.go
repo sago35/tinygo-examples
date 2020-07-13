@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"tinygo.org/x/drivers/net"
@@ -61,46 +62,58 @@ func failMessage(msg string) {
 	}
 }
 
-func makeHTTPRequest() string {
-
+func httpGet(url string) ([]byte, error) {
 	var err error
 	if conn != nil {
 		conn.Close()
 	}
 
 	// make TCP connection
-	ip := net.ParseIP(server)
-	raddr := &net.TCPAddr{IP: ip, Port: 8080}
+	x := strings.SplitN(url, "://", 2)
+	if 1 == len(x) {
+		return nil, fmt.Errorf("url error: %q", url)
+	}
+	x = strings.SplitN(x[1], "/", 2)
+	address := x[0]
+	path := "/"
+	if 1 < len(x) {
+		path += x[1]
+	}
+
+	raddr, err := net.ResolveTCPAddr("tcp", address)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("%v\r\n", raddr)
 	laddr := &net.TCPAddr{Port: 8080}
 
-	fmt.Printf("makeHTTPRequest\r\n")
 	conn, err = net.DialTCP("tcp", laddr, raddr)
 	for ; err != nil; conn, err = net.DialTCP("tcp", laddr, raddr) {
 		time.Sleep(5 * time.Second)
 	}
-	println("Connected!\r")
 
-	print("Sending HTTP request...")
-	fmt.Fprintln(conn, "GET / HTTP/1.1")
+	fmt.Fprintln(conn, fmt.Sprintf("GET %s HTTP/1.1", path))
 	fmt.Fprintln(conn, "Host:", server)
 	fmt.Fprintln(conn, "User-Agent: TinyGo/0.14.0")
 	fmt.Fprintln(conn, "Connection: close")
 	fmt.Fprintln(conn)
-	println("Sent!\r\n\r")
 
 	if conn == nil {
-		return ""
+		return buf[:0], nil
 	}
 
 	var n int
-	var ret string
-	for n, err = conn.Read(buf[:]); n > 0; n, err = conn.Read(buf[:]) {
+	var end int
+	rbuf := buf[:]
+
+	n, err = conn.Read(rbuf)
+	for n > 0 {
 		if err != nil {
 			println("Read error: " + err.Error())
 		} else {
-			ret = string(buf[0:n])
-			print(ret)
+			end += n
 		}
+		n, err = conn.Read(rbuf)
 	}
 	if err != nil {
 		println("Read error2: " + err.Error())
@@ -110,6 +123,5 @@ func makeHTTPRequest() string {
 	if err != nil {
 		println("Read error3: " + err.Error())
 	}
-	//rtl8720dn.NextSocketCh()
-	return ret
+	return buf[:end], nil
 }
