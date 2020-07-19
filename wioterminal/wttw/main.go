@@ -34,22 +34,35 @@ var (
 func main() {
 	led.Configure(machine.PinConfig{Mode: machine.PinOutput})
 
+	display.Configure(ili9341.Config{
+		Rotation: ili9341.Rotation180,
+	})
+	display.FillScreen(white)
+
+	backlight.Configure(machine.PinConfig{Mode: machine.PinOutput})
+	backlight.High()
+
 	rtl = initRTL()
 	//rtl.Configure(&rtl8720dn.Config{})
 	net.ActiveDevice = rtl
 	fmt.Printf("connecting\r\n")
+	tinyfont.WriteLine(display, &TinyFont, 3, 15, "connecting\n", color.RGBA{0, 0, 0, 255})
 
 	if connectToRTL8720() {
 		println("Connected to wifi adaptor.")
+		tinyfont.WriteLine(display, &TinyFont, 3, tinyfont.Cy, "connected to wifi adaptor.\n", color.RGBA{0, 0, 0, 255})
 		//adaptor.Echo(false)
 
 		connectToAP()
 	} else {
 		println("")
 		failMessage("Unable to connect to wifi adaptor.")
+		tinyfont.WriteLine(display, &TinyFont, 3, tinyfont.Cy, "unable to connect to wifi adaptor\n", color.RGBA{0, 0, 0, 255})
 		return
 	}
+	tinyfont.WriteLine(display, &TinyFont, 3, tinyfont.Cy, "connected\n", color.RGBA{0, 0, 0, 255})
 
+	tinyfont.WriteLine(display, &TinyFont, 3, tinyfont.Cy, "init sdcard", color.RGBA{0, 0, 0, 255})
 	if true {
 		sd = sdcard.New(sdSpi, sdCs)
 		err := sd.Configure()
@@ -60,20 +73,8 @@ func main() {
 			}
 		}
 	}
-
-	backlight.Configure(machine.PinConfig{Mode: machine.PinOutput})
-
-	display.Configure(ili9341.Config{})
-	width, height := display.Size()
-
-	display.FillScreen(black)
-	backlight.High()
-
-	display.FillRectangle(0, 0, width/2, height/2, white)
-	display.FillRectangle(width/2, 0, width/2, height/2, red)
-	display.FillRectangle(0, height/2, width/2, height/2, green)
-	display.FillRectangle(width/2, height/2, width/2, height/2, blue)
-	display.FillRectangle(width/4, height/4, width/2, height/2, black)
+	tinyfont.WriteLine(display, &TinyFont, tinyfont.Cx, tinyfont.Cy, "...done\n", color.RGBA{0, 0, 0, 255})
+	time.Sleep(500 * time.Millisecond)
 
 	tinyfont.Wrap = true
 
@@ -84,6 +85,11 @@ func loop() {
 	i := 0
 	needRedraw := true
 	s := tweet.S
+
+	if true {
+		needRedraw = false
+		btnPressed(-1)
+	}
 	for {
 		led.Toggle()
 
@@ -105,23 +111,51 @@ func loop() {
 			needRedraw = false
 		}
 
-		if !btnNext.Get() || !btnNext2.Get() {
+		if !btnNext.Get() {
 			i = (i + 1) % len(s)
 			needRedraw = true
-		} else if !btnPrev.Get() || !btnPrev2.Get() {
+		} else if !btnNext2.Get() {
+			// down
+			btnPressed(-1)
+		} else if !btnPrev.Get() {
 			i = (i + len(s) - 1) % len(s)
 			needRedraw = true
+		} else if !btnPrev2.Get() {
+			// up
+			btnPressed(1)
 		} else if !btnPress.Get() {
 			fmt.Printf("press\r\n")
-			btnPressed()
+			btnPressed(1)
 		}
 	}
 }
 
-func btnPressed() {
-	buf, err := httpGet("http://192.168.1.114:8080/u")
+var bmp [240 * 10]uint16
+var prevID int64
+
+func btnPressed(offset int) {
+	url := "http://192.168.1.114:8081/u/"
+	if prevID == 0 {
+	} else if offset < 0 {
+		url += fmt.Sprintf("?max=%d", prevID)
+	} else {
+		url += fmt.Sprintf("?since=%d", prevID)
+	}
+	buf, err := httpGet(url)
 	if err != nil {
 		fmt.Printf("err %s\r\n", err.Error())
+		// reconnect
+		rtl.Configure(&rtl8720dn.Config{})
+		if connectToRTL8720() {
+			println("Connected to wifi adaptor.")
+			//adaptor.Echo(false)
+
+			connectToAP()
+		} else {
+			println("")
+			failMessage("Unable to connect to wifi adaptor.")
+			return
+		}
 		return
 	}
 	t, err := tweet.NewTweet2(buf)
@@ -129,9 +163,15 @@ func btnPressed() {
 		fmt.Printf("err %s\r\n", err.Error())
 		return
 	}
-	fmt.Printf("%#v\r\n", t)
-
+	if prevID == t.Id {
+		// skip
+		m.Msgbox("新しい tweet はありません", 0, 120)
+		time.Sleep(1 * time.Second)
+	}
 	display.FillScreen(color.RGBA{255, 255, 255, 255})
+
+	prevID = t.Id
+	fmt.Printf("%#v\r\n", t)
 
 	tinyfont.WriteLine(display, &TinyFont, 3, 15, t.UserName, color.RGBA{0, 0, 0, 255})
 	tinyfont.WriteLine(display, &MplusConst10pt, tinyfont.Cx, tinyfont.Cy, fmt.Sprintf(" @%s\n", t.ScreenName), color.RGBA{158, 158, 158, 255})
@@ -141,11 +181,4 @@ func btnPressed() {
 	tinyfont.Cy += 5
 
 	tinyfont.WriteLine(display, &TinyFont, 3, tinyfont.Cy+5, t.FullText, color.RGBA{0, 0, 0, 255})
-
-	buf, err = httpGet(fmt.Sprintf("http://192.168.1.114:8080/e?url=%s", t.Entities[0]))
-	if err != nil {
-		fmt.Printf("err %s\r\n", err.Error())
-		return
-	}
-	tinyfont.WriteLine(display, &TinyFont, 3, tinyfont.Cy+12+5, t.Entities[0], color.RGBA{0, 0, 0, 255})
 }

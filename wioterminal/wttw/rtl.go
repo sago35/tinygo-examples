@@ -12,7 +12,7 @@ import (
 // IP address of the server aka "hub". Replace with your own info.
 var server = "192.168.1.114"
 var conn net.Conn
-var buf [4096]byte
+var buf [240 * 2 * 240]byte
 
 // connect to RTL8720DN
 func connectToRTL8720() bool {

@@ -25,7 +25,7 @@ func init() {
 		SCK:       machine.LCD_SCK_PIN,
 		MOSI:      machine.LCD_MOSI_PIN,
 		MISO:      machine.LCD_MISO_PIN,
-		Frequency: 40000000,
+		Frequency: 48000000,
 	})
 }
 
