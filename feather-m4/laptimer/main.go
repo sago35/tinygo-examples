@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"image/color"
 	"machine"
+	"time"
 
 	"tinygo.org/x/drivers/ssd1306"
 	"tinygo.org/x/tinyfont"
@@ -15,6 +16,7 @@ var timerCh = make(chan struct{}, 1)
 
 var (
 	led = machine.LED
+	d0  = machine.D0
 	d11 = machine.D11
 	d12 = machine.D12
 	a2  = machine.A2
@@ -31,6 +33,8 @@ var (
 
 func main() {
 	led.Configure(machine.PinConfig{Mode: machine.PinOutput})
+
+	d0.Configure(machine.PinConfig{Mode: machine.PinInputPullup})
 
 	d11.Configure(machine.PinConfig{Mode: machine.PinOutput})
 	d12.Configure(machine.PinConfig{Mode: machine.PinOutput})
@@ -117,6 +121,7 @@ func main() {
 //export SysTick_Handler
 func timer_isr() {
 	tick()
+	tick2()
 
 	select {
 	case timerCh <- struct{}{}:
@@ -170,7 +175,7 @@ func tick() {
 			cnt = 0
 		}
 	case stEXPIRE:
-		d11.High()
+		//d11.High()
 		guard = 10 * 500
 		state = stEXPIRED
 		prevTime = currentTime
@@ -179,8 +184,109 @@ func tick() {
 		guard--
 		if 0 == guard {
 			cnt = 0
-			d11.Low()
+			//d11.Low()
 			state = stIDL
 		}
+	}
+}
+
+const (
+	tick2stWaitStartBitLow = iota
+	tick2stWaitStartBitHigh
+	tick2stParse
+	tick2stWaitLow
+	tick2stWaitHigh
+)
+
+var (
+	tick2currentTime uint32
+	tick2prevTime    uint32
+	tick2state       = tick2stWaitStartBitLow
+	tick2cnt         uint32
+	buf              [10]byte
+)
+
+// tick2 is called per 2ms
+func tick2() {
+	current := d0.Get()
+	tick2currentTime += 2
+	idx := 0
+	bitIdx := byte(0)
+
+	switch tick2state {
+	case tick2stWaitStartBitLow:
+		if !current {
+			d11.Toggle()
+			tick2cnt += 2
+			if 5 < tick2cnt {
+				tick2state = tick2stWaitStartBitHigh
+				tick2cnt = 0
+			}
+		} else {
+			tick2cnt = 0
+		}
+	case tick2stWaitStartBitHigh:
+		if current {
+			d11.Low()
+			tick2state = tick2stParse
+			tick2cnt = 0
+		}
+	case tick2stParse:
+		// blocking 処理 (数 ms 以上)
+		t := 0
+		for d0.Get() {
+			// 初回の Low の手前までを読み飛ばす
+		}
+
+		for {
+			d11.Toggle()
+			for !d0.Get() {
+				// High に戻るのを待つ
+			}
+			t = time.Now().Nanosecond()
+			for d0.Get() {
+				// 信号の終わり (Low になる) を待つ
+				if 12*1000*1000 < time.Now().Nanosecond()-t {
+					// 12ms 以上 High が継続する場合は抜ける
+					if bitIdx == 0 && 0 < idx {
+						idx--
+					}
+					//fmt.Printf("-= %v\r\n", buf[:idx])
+					fmt.Print(fmt.Sprintf("-= %02X %02X %02X %02X %02X \r\n", buf[0], buf[1], buf[2], buf[3], buf[4]))
+					//fmt.Printf("-= %02X %02X %02X %02X %02X \r\n", buf[0], buf[1], buf[2], buf[3], buf[4])
+					for i := range buf {
+						buf[i] = 0x00
+					}
+					tick2state = tick2stWaitStartBitLow
+					return
+				}
+			}
+			t = time.Now().Nanosecond() - t
+
+			if 10*1000*1000 <= t {
+				// stop data
+				break
+			} else if 1*1000*1000 <= t {
+				// high
+				buf[idx] |= 1 << (7 - bitIdx)
+			} else {
+				// low
+			}
+
+			bitIdx++
+			if 8 <= bitIdx {
+				idx++
+				bitIdx = 0
+			}
+		}
+		d11.Toggle()
+		if bitIdx == 0 && 0 < idx {
+			idx--
+		}
+		fmt.Printf("-- %v\r\n", buf[:1])
+
+		tick2state = tick2stWaitStartBitLow
+	case tick2stWaitLow:
+	case tick2stWaitHigh:
 	}
 }
