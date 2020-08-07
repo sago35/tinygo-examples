@@ -15,6 +15,7 @@ import (
 
 var (
 	black = color.RGBA{0, 0, 0, 255}
+	gray  = color.RGBA{32, 32, 32, 255}
 	white = color.RGBA{255, 255, 255, 255}
 	red   = color.RGBA{255, 0, 0, 255}
 	blue  = color.RGBA{0, 0, 255, 255}
@@ -111,50 +112,50 @@ func main() {
 
 	for {
 		if btnC.Get() {
-			display.FillRectangle(10, 10, 10, 10, white)
+			display.FillRectangle(10, 10, 10, 10, gray)
 		} else {
 			display.FillRectangle(10, 10, 10, 10, red)
 		}
 
 		if btnB.Get() {
-			display.FillRectangle(30, 10, 10, 10, white)
+			display.FillRectangle(30, 10, 10, 10, gray)
 		} else {
 			display.FillRectangle(30, 10, 10, 10, red)
 		}
 
 		if btnA.Get() {
-			display.FillRectangle(50, 10, 10, 10, white)
+			display.FillRectangle(50, 10, 10, 10, gray)
 		} else {
 			display.FillRectangle(50, 10, 10, 10, red)
 		}
 
 		if btnU.Get() {
-			display.FillRectangle(280, 180, 10, 10, white)
+			display.FillRectangle(280, 180, 10, 10, gray)
 		} else {
 			display.FillRectangle(280, 180, 10, 10, red)
 		}
 
 		if btnP.Get() {
-			display.FillRectangle(280, 200, 10, 10, white)
+			display.FillRectangle(280, 200, 10, 10, gray)
 		} else {
 			display.FillRectangle(280, 200, 10, 10, red)
 			bzr.Tone(buzzer.G7, 0.02)
 		}
 
 		if btnD.Get() {
-			display.FillRectangle(280, 220, 10, 10, white)
+			display.FillRectangle(280, 220, 10, 10, gray)
 		} else {
 			display.FillRectangle(280, 220, 10, 10, red)
 		}
 
 		if btnL.Get() {
-			display.FillRectangle(260, 200, 10, 10, white)
+			display.FillRectangle(260, 200, 10, 10, gray)
 		} else {
 			display.FillRectangle(260, 200, 10, 10, red)
 		}
 
 		if btnR.Get() {
-			display.FillRectangle(300, 200, 10, 10, white)
+			display.FillRectangle(300, 200, 10, 10, gray)
 		} else {
 			display.FillRectangle(300, 200, 10, 10, red)
 		}
@@ -180,8 +181,8 @@ func main() {
 		rawXY[rawXYi][0] = x2 / 256
 		rawXY[rawXYi][1] = y2 / 256
 
-		display.DrawFastVLine(50, 120, 220, white)
-		display.DrawFastHLine(0, 100, 170, white)
+		display.DrawFastVLine(50, 120, 220, gray)
+		display.DrawFastHLine(0, 100, 170, gray)
 
 		for i := range rawXY {
 			i = 15 - i
