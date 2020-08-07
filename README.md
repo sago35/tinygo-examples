@@ -1,5 +1,12 @@
 # TinyGo examples
 
+## wioterminal sample
+
+TinyGo example of wioterminal.  
+https://github.com/sago35/tinygo-examples/tree/master/wioterminal/sample  
+
+[![](https://img.youtube.com/vi/9IpI9rUMXOs/0.jpg)](https://www.youtube.com/watch?v=9IpI9rUMXOs)
+
 ## pinintterrupt
 
 Example of combining pin interrupts and goroutine in TinyGo.  
