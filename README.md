@@ -1,5 +1,12 @@
 # TinyGo examples
 
+## wioterminal goroutines
+
+TinyGo example of wioterminal.  
+https://github.com/sago35/tinygo-examples/tree/master/wioterminal/goroutines  
+
+[![](https://img.youtube.com/vi/-dJ-o2cH_Fk/0.jpg)](https://www.youtube.com/watch?v=-dJ-o2cH_Fk)
+
 ## wioterminal sample
 
 TinyGo example of wioterminal.  
