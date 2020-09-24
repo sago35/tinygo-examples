@@ -40,7 +40,7 @@ func main() {
 	backlight := machine.LCD_BACKLIGHT
 	backlight.Configure(machine.PinConfig{Mode: machine.PinOutput})
 
-	display := ili9341.NewSpi(
+	display := ili9341.NewSPI(
 		machine.SPI3,
 		machine.LCD_DC,
 		machine.LCD_SS_PIN,
