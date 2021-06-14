@@ -20,7 +20,7 @@ var (
 	led1    = machine.LED
 	led2    = machine.D3
 	button  = machine.D4
-	aqm0802 = st7032.New(&machine.I2C0, 0x3E)
+	aqm0802 = st7032.New(machine.I2C0, 0x3E)
 )
 
 // scrollp is a function to scroll str
