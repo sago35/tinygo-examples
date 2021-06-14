@@ -3,7 +3,6 @@ smoketest:
 	tinygo build -o test.hex -size short -target wioterminal ./wioterminal/buttons
 	tinygo build -o test.hex -size short -target wioterminal ./wioterminal/buzzer
 	tinygo build -o test.hex -size short -target wioterminal ./wioterminal/goroutines
-	tinygo build -o test.hex -size short -target wioterminal ./wioterminal/gpio
 	tinygo build -o test.hex -size short -target wioterminal ./wioterminal/ir
 	tinygo build -o test.hex -size short -target wioterminal ./wioterminal/light_sensor
 	tinygo build -o test.hex -size short -target wioterminal ./wioterminal/lis3dh
