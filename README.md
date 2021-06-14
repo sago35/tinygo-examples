@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/sago35/tinygo-examples/tree/master.svg?style=svg)](https://circleci.com/gh/sago35/tinygo-examples/tree/master)
+
 # TinyGo examples
 
 ## wioterminal goroutines
