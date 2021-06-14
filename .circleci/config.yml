@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: tinygo/tinygo-dev
+    steps:
+      - checkout
+      - run: tinygo version
+      - run:
+          name: "Enforce Go Formatted Code"
+          command: make fmt-check
+      - run:
+          name: "Run build and smoke tests"
+          command: make smoketest
+
