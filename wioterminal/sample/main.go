@@ -83,10 +83,10 @@ func main() {
 	btnP.Configure(machine.PinConfig{Mode: machine.PinInput})
 
 	lightSensor := machine.ADC{Pin: machine.WIO_LIGHT}
-	lightSensor.Configure()
+	lightSensor.Configure(machine.ADCConfig{})
 
 	mic := machine.ADC{Pin: machine.WIO_MIC}
-	mic.Configure()
+	mic.Configure(machine.ADCConfig{})
 
 	label1 := NewLabel(240, 0x12)
 	label2 := NewLabel(240, 0x12)
