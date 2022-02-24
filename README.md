@@ -1,18 +1,18 @@
-[![CircleCI](https://circleci.com/gh/sago35/tinygo-examples/tree/master.svg?style=svg)](https://circleci.com/gh/sago35/tinygo-examples/tree/master)
+[![CircleCI](https://circleci.com/gh/sago35/tinygo-examples/tree/main.svg?style=svg)](https://circleci.com/gh/sago35/tinygo-examples/tree/main)
 
 # TinyGo examples
 
 ## wioterminal goroutines
 
 TinyGo example of wioterminal.  
-https://github.com/sago35/tinygo-examples/tree/master/wioterminal/goroutines  
+https://github.com/sago35/tinygo-examples/tree/main/wioterminal/goroutines  
 
 [![](https://img.youtube.com/vi/-dJ-o2cH_Fk/0.jpg)](https://www.youtube.com/watch?v=-dJ-o2cH_Fk)
 
 ## wioterminal sample
 
 TinyGo example of wioterminal.  
-https://github.com/sago35/tinygo-examples/tree/master/wioterminal/sample  
+https://github.com/sago35/tinygo-examples/tree/main/wioterminal/sample  
 
 [![](https://img.youtube.com/vi/9IpI9rUMXOs/0.jpg)](https://www.youtube.com/watch?v=9IpI9rUMXOs)
 
@@ -36,7 +36,7 @@ There are many examples below.
 ## pinintterrupt
 
 Example of combining pin interrupts and goroutine in TinyGo.  
-https://github.com/sago35/tinygo-examples/tree/master/pininterrupt  
+https://github.com/sago35/tinygo-examples/tree/main/pininterrupt  
 
 [![](https://img.youtube.com/vi/A-EA5iqDp7k/0.jpg)](https://www.youtube.com/watch?v=A-EA5iqDp7k)
 
