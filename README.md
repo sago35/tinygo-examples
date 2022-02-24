@@ -40,11 +40,19 @@ https://github.com/sago35/tinygo-examples/tree/master/pininterrupt
 
 [![](https://img.youtube.com/vi/A-EA5iqDp7k/0.jpg)](https://www.youtube.com/watch?v=A-EA5iqDp7k)
 
-info:  
-pin interrupt is still in the PR stage.  
+## DeviceID / Serial Number
 
-* https://github.com/tinygo-org/tinygo/pull/1094
-* https://github.com/tinygo-org/tinygo/pull/1111
+This is an example of reading the DeviceID.  
+In other words, it is an example of reading data from a specific address of a microcontroller.  
+
+* [./deviceid/](./deviceid/)
+
+The following microcontrollers are supported.  
+
+* atsamd51
+* atsamd21
+* nrf52840
+* stm32f405
 
 ## LICENSE
 
