@@ -10,6 +10,7 @@ smoketest:
 	tinygo build -o /tmp/test.hex -size short -target wioterminal ./wioterminal/qspi_flash
 	tinygo build -o /tmp/test.hex -size short -target wioterminal ./wioterminal/sample
 	tinygo build -o /tmp/test.hex -size short -target wioterminal ./wioterminal/usbcdc
+	tinygo build -o /tmp/test.hex -size short -target wioterminal ./deviceid
 	go build -o /tmp/test.exe ./wioterminal/usbcdc/cmd/wio-client
 
 fmt-check:
