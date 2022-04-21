@@ -32,6 +32,7 @@ There are many examples below.
     * [./wioterminal/qspi_flash/](./wioterminal/qspi_flash/)
     * [./wioterminal/sample/](./wioterminal/sample/)
     * [./wioterminal/usbcdc/](./wioterminal/usbcdc/)
+    * [./wioterminal/webclient/](./wioterminal/webclient/)
 
 ## wioterminal initialize
 
