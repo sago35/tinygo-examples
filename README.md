@@ -29,6 +29,7 @@ There are many examples below.
     * [./wioterminal/light_sensor/](./wioterminal/light_sensor/)
     * [./wioterminal/lis3dh/](./wioterminal/lis3dh/)
     * [./wioterminal/microphone/](./wioterminal/microphone/)
+    * [./wioterminal/mqtt/](./wioterminal/mqtt/)
     * [./wioterminal/qspi_flash/](./wioterminal/qspi_flash/)
     * [./wioterminal/sample/](./wioterminal/sample/)
     * [./wioterminal/usbcdc/](./wioterminal/usbcdc/)
