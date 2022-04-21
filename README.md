@@ -33,6 +33,12 @@ There are many examples below.
     * [./wioterminal/sample/](./wioterminal/sample/)
     * [./wioterminal/usbcdc/](./wioterminal/usbcdc/)
 
+## wioterminal initialize
+
+`initialize.Wifi(ssid, password)` initializes RTL8720DN and configures WiFi.
+
+* [./wioterminal/initialize/](./wioterminal/initialize/)
+
 ## pinintterrupt
 
 Example of combining pin interrupts and goroutine in TinyGo.  
