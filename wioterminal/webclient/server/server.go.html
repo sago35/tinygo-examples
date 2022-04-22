@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>~/dev/src/github.com/sago35/tinygo-examples/wioterminal/webclient/server/server.go.html</title>
+<meta name="Generator" content="Vim/8.2">
+<meta name="plugin-version" content="vim8.1_v2">
+<meta name="syntax" content="go">
+<meta name="settings" content="use_css,no_foldcolumn,expand_tabs,prevent_copy=,use_input_for_pc=fallback">
+<meta name="colorscheme" content="molokai">
+<style>
+<!--
+pre { font-family: monospace; color: #f8f8f2; background-color: #000000; }
+body { font-family: monospace; color: #f8f8f2; background-color: #000000; }
+* { font-size: 1em; }
+.Statement { color: #f92672; font-weight: bold; }
+.String { color: #e6db74; }
+.Conditional { color: #f92672; font-weight: bold; }
+.Keyword { color: #f92672; font-weight: bold; }
+.Type { color: #66d9ef; }
+.Special { color: #66d9ef; background-color: #000000; padding-bottom: 1px; }
+-->
+</style>
+</head>
+<body>
+<pre id='vimCodeElement'>
+<span class="Statement">package</span> main
+
+<span class="Statement">import</span> (
+    <span class="String">&quot;fmt&quot;</span>
+    <span class="String">&quot;io/ioutil&quot;</span>
+    <span class="String">&quot;log&quot;</span>
+    <span class="String">&quot;net/http&quot;</span>
+)
+
+<span class="Keyword">func</span> handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, <span class="String">&quot;ok&quot;</span>)
+
+    body := r.Body
+    <span class="Statement">defer</span> body.Close()
+
+    b, err := ioutil.ReadAll(body)
+    <span class="Conditional">if</span> err != <span class="Keyword">nil</span> {
+        <span class="Keyword">panic</span>(err)
+    }
+    log.Printf(<span class="String">&quot;%s</span><span class="Special">\n</span><span class="String">&quot;</span>, <span class="Type">string</span>(b))
+}
+
+<span class="Keyword">func</span> main() {
+    http.HandleFunc(<span class="String">&quot;/&quot;</span>, handler)
+    err := http.ListenAndServe(<span class="String">&quot;:80&quot;</span>, <span class="Keyword">nil</span>)
+    <span class="Conditional">if</span> err != <span class="Keyword">nil</span> {
+        log.Fatal(err)
+    }
+}
+</pre>
+</body>
+</html>
+<!-- vim: set foldmethod=manual : -->
