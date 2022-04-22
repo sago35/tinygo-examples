@@ -52,7 +52,7 @@ func setupRTL8720DN() (*rtl8720dn.RTL8720DN, error) {
 	time.Sleep(100 * time.Millisecond)
 	machine.RTL8720D_CHIP_PU.High()
 	time.Sleep(1000 * time.Millisecond)
-	waitSerial()
+	//waitSerial()
 
 	uart = UARTx{
 		UART: &machine.UART{
