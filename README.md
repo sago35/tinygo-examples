@@ -35,6 +35,17 @@ There are many examples below.
     * [./wioterminal/usbcdc/](./wioterminal/usbcdc/)
     * [./wioterminal/webclient/](./wioterminal/webclient/)
 
+## xiao-ble examples
+
+TinyGo example of XIAO BLE.  
+This is a Demo using Bluetooth.  
+
+* [./xiao-ble/](./xiao-ble/)
+
+[![](https://img.youtube.com/vi/HWBxuMbNUTI/0.jpg)](https://www.youtube.com/watch?v=HWBxuMbNUTI)
+
+
+
 ## wioterminal initialize
 
 `initialize.Wifi(ssid, password)` initializes RTL8720DN and configures WiFi.
