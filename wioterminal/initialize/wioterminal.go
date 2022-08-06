@@ -15,9 +15,11 @@ import (
 )
 
 var (
-	uart  UARTx
-	debug bool
-	buf   [0x1000]byte
+	rtl       *rtl8720dn.RTL8720DN
+	connected bool
+	uart      UARTx
+	debug     bool
+	buf       [0x1000]byte
 )
 
 func handleInterrupt(interrupt.Interrupt) {
@@ -48,7 +50,7 @@ func SetupRTL8720DN() (*rtl8720dn.RTL8720DN, error) {
 	uart.Interrupt = interrupt.New(sam.IRQ_SERCOM0_2, handleInterrupt)
 	uart.Configure(machine.UARTConfig{TX: machine.PB24, RX: machine.PC24, BaudRate: 614400})
 
-	rtl := rtl8720dn.New(uart)
+	rtl = rtl8720dn.New(uart)
 	rtl.Debug(debug)
 
 	_, err := rtl.Rpc_tcpip_adapter_init()
@@ -56,12 +58,13 @@ func SetupRTL8720DN() (*rtl8720dn.RTL8720DN, error) {
 		return nil, err
 	}
 
+	connected = true
 	return rtl, nil
 }
 
 // Wifi sets up the RTL8720DN and connects it to Wi-Fi.
 func Wifi(ssid, pass string, timeout time.Duration) (*rtl8720dn.RTL8720DN, error) {
-	rtl, err := SetupRTL8720DN()
+	_, err := SetupRTL8720DN()
 	if err != nil {
 		return nil, err
 	}
@@ -76,6 +79,29 @@ func Wifi(ssid, pass string, timeout time.Duration) (*rtl8720dn.RTL8720DN, error
 	http.SetBuf(buf[:])
 
 	return rtl, nil
+}
+
+func Device() *rtl8720dn.RTL8720DN {
+	return rtl
+}
+
+func Connected() bool {
+	return connected
+}
+
+func IP() rtl8720dn.IPAddress {
+	ip, _, _, _ := rtl.GetIP()
+	return ip
+}
+
+func Subnet() rtl8720dn.IPAddress {
+	_, subnet, _, _ := rtl.GetIP()
+	return subnet
+}
+
+func Gateway() rtl8720dn.IPAddress {
+	_, _, gateway, _ := rtl.GetIP()
+	return gateway
 }
 
 // Wait for user to open serial console
