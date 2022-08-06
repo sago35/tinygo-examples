@@ -6,6 +6,7 @@ package initialize
 import (
 	"device/sam"
 	"machine"
+	"runtime"
 	"runtime/interrupt"
 	"time"
 
@@ -77,6 +78,13 @@ func Wifi(ssid, pass string, timeout time.Duration) (*rtl8720dn.RTL8720DN, error
 	net.UseDriver(rtl)
 	http.UseDriver(rtl)
 	http.SetBuf(buf[:])
+
+	// NTP
+	t, err := GetCurrentTime()
+	if err != nil {
+		return nil, err
+	}
+	runtime.AdjustTimeOffset(-1 * int64(time.Since(t)))
 
 	return rtl, nil
 }
