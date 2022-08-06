@@ -25,6 +25,7 @@ func GetCurrentTime() (time.Time, error) {
 	if err != nil {
 		return time.Time{}, err
 	}
+	defer conn.Close()
 
 	return getCurrentTime(conn)
 }
