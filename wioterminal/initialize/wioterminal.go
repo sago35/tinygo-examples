@@ -15,30 +15,10 @@ import (
 )
 
 var (
-	uart      UARTx
-	Rtl8720dn *rtl8720dn.RTL8720DN
-	buf       [0x1000]byte
-	debug     bool
+	uart  UARTx
+	debug bool
+	buf   [0x1000]byte
 )
-
-// Wifi initializes RTL8270DN and configures WiFi.
-func Wifi(ssid, password string) error {
-	rtl, err := setupRTL8720DN()
-	if err != nil {
-		return err
-	}
-
-	net.UseDriver(rtl)
-	http.SetBuf(buf[:])
-
-	err = rtl.ConnectToAccessPoint(ssid, password, 10*time.Second)
-	if err != nil {
-		return err
-	}
-
-	Rtl8720dn = rtl
-	return nil
-}
 
 func handleInterrupt(interrupt.Interrupt) {
 	// should reset IRQ
@@ -46,13 +26,16 @@ func handleInterrupt(interrupt.Interrupt) {
 	uart.Bus.INTFLAG.SetBits(sam.SERCOM_USART_INT_INTFLAG_RXC)
 }
 
-func setupRTL8720DN() (*rtl8720dn.RTL8720DN, error) {
+// SetupRTL8720DN sets up the RTL8270DN for use.
+func SetupRTL8720DN() (*rtl8720dn.RTL8720DN, error) {
 	machine.RTL8720D_CHIP_PU.Configure(machine.PinConfig{Mode: machine.PinOutput})
 	machine.RTL8720D_CHIP_PU.Low()
 	time.Sleep(100 * time.Millisecond)
 	machine.RTL8720D_CHIP_PU.High()
 	time.Sleep(1000 * time.Millisecond)
-	//waitSerial()
+	if debug {
+		waitSerial()
+	}
 
 	uart = UARTx{
 		UART: &machine.UART{
@@ -76,6 +59,25 @@ func setupRTL8720DN() (*rtl8720dn.RTL8720DN, error) {
 	return rtl, nil
 }
 
+// Wifi sets up the RTL8720DN and connects it to Wi-Fi.
+func Wifi(ssid, pass string, timeout time.Duration) (*rtl8720dn.RTL8720DN, error) {
+	rtl, err := SetupRTL8720DN()
+	if err != nil {
+		return nil, err
+	}
+
+	err = rtl.ConnectToAccessPoint(ssid, pass, 10*time.Second)
+	if err != nil {
+		return rtl, err
+	}
+
+	net.UseDriver(rtl)
+	http.UseDriver(rtl)
+	http.SetBuf(buf[:])
+
+	return rtl, nil
+}
+
 // Wait for user to open serial console
 func waitSerial() {
 	for !machine.Serial.DTR() {
@@ -93,4 +95,9 @@ func (u UARTx) Read(p []byte) (n int, err error) {
 		return 0, nil
 	}
 	return u.UART.Read(p)
+}
+
+// Debug sets the debug mode.
+func Debug(b bool) {
+	debug = b
 }
