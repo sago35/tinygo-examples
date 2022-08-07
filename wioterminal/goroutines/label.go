@@ -20,7 +20,7 @@ func NewLabel(w, h int) *label {
 		buf:        make([]uint16, w*h),
 		w:          int16(w),
 		h:          int16(h),
-		fontHeight: int16(tinyfont.GetGlyph(&freemono.Regular9pt7b, '0').Height),
+		fontHeight: int16(tinyfont.GetGlyph(&freemono.Regular9pt7b, '0').Info().Height),
 	}
 }
 
