@@ -84,10 +84,10 @@ func run() error {
 	machine.OUTPUT_CTR_3V3.Configure(machine.PinConfig{Mode: machine.PinOutput})
 	machine.OUTPUT_CTR_3V3.Low()
 
-	// Initialize I2C1 using BCM0 (SDA) and BCM1 (SCL)
-	// I2C SERCOM4 : SCL1_PIN (PA12) + SDA1_PIN (PA13)
+	// Initialize I2C0 using BCM0 (SDA) and BCM1 (SCL)
+	// I2C SERCOM4 : SCL0_PIN (PA12) + SDA0_PIN (PA13)
 	i2c := &machine.I2C{Bus: sam.SERCOM4_I2CM, SERCOM: 4}
-	i2c.Configure(machine.I2CConfig{SCL: machine.SCL1_PIN, SDA: machine.SDA1_PIN})
+	i2c.Configure(machine.I2CConfig{SCL: machine.SCL0_PIN, SDA: machine.SDA0_PIN})
 
 	// Initialize BME280
 	sensor := bme280.New(i2c)

@@ -91,8 +91,8 @@ func main() {
 	label1 := NewLabel(240, 0x12)
 	label2 := NewLabel(240, 0x12)
 
-	machine.I2C1.Configure(machine.I2CConfig{SCL: machine.SCL1_PIN, SDA: machine.SDA1_PIN})
-	accel := lis3dh.New(machine.I2C1)
+	machine.I2C0.Configure(machine.I2CConfig{SCL: machine.SCL0_PIN, SDA: machine.SDA0_PIN})
+	accel := lis3dh.New(machine.I2C0)
 	accel.Address = lis3dh.Address0
 	accel.Configure()
 	accel.SetRange(lis3dh.RANGE_2_G)
@@ -214,7 +214,7 @@ func NewLabel(w, h int) *label {
 		buf:        make([]uint16, w*h),
 		w:          int16(w),
 		h:          int16(h),
-		fontHeight: int16(tinyfont.GetGlyph(&freemono.Regular9pt7b, '0').Height),
+		fontHeight: int16(tinyfont.GetGlyph(&freemono.Regular9pt7b, '0').Info().Height),
 	}
 }
 
