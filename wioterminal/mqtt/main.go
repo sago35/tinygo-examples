@@ -7,13 +7,12 @@
 //
 // You must also install the Paho MQTT package to build this program:
 //
-// 		go get -u github.com/eclipse/paho.mqtt.golang
+//	go get -u github.com/eclipse/paho.mqtt.golang
 //
 // You can check that mqttpub/mqttsub is running successfully with the following command.
 //
-// 		mosquitto_sub -h test.mosquitto.org -t tinygo/tx
-// 		mosquitto_pub -h test.mosquitto.org -t tinygo/rx -m "hello world"
-//
+//	mosquitto_sub -h test.mosquitto.org -t tinygo/tx
+//	mosquitto_pub -h test.mosquitto.org -t tinygo/rx -m "hello world"
 package main
 
 import (
