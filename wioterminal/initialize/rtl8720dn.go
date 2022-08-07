@@ -112,6 +112,10 @@ func Gateway() rtl8720dn.IPAddress {
 	return gateway
 }
 
+func SetRootCA(s *string) {
+	rtl.SetRootCA(s)
+}
+
 // Wait for user to open serial console
 func waitSerial() {
 	for !machine.Serial.DTR() {
