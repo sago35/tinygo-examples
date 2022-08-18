@@ -94,8 +94,8 @@ tinygo.org/x/drivers v0.16.0/go.mod h1:uT2svMq3EpBZpKkGO+NQHjxjGf1f42ra4OnMMwQL2
 tinygo.org/x/drivers v0.19.0/go.mod h1:uJD/l1qWzxzLx+vcxaW0eY464N5RAgFi1zTVzASFdqI=
 tinygo.org/x/drivers v0.20.0/go.mod h1:uJD/l1qWzxzLx+vcxaW0eY464N5RAgFi1zTVzASFdqI=
 tinygo.org/x/drivers v0.21.0/go.mod h1:uJD/l1qWzxzLx+vcxaW0eY464N5RAgFi1zTVzASFdqI=
-tinygo.org/x/drivers v0.21.1-0.20220805190104-749b2f672674 h1:tDkqoYlQhuvOKGKSz1Nnc85VVlqGC44SzGiL4kfunc4=
-tinygo.org/x/drivers v0.21.1-0.20220805190104-749b2f672674/go.mod h1:J4+51Li1kcfL5F93kmnDWEEzQF3bLGz0Am3Q7E2a8/E=
+tinygo.org/x/drivers v0.22.0 h1:s5c0hJY8pJYojSGS5AQgauwhTuH2bBZPDqdwkBDGW+o=
+tinygo.org/x/drivers v0.22.0/go.mod h1:J4+51Li1kcfL5F93kmnDWEEzQF3bLGz0Am3Q7E2a8/E=
 tinygo.org/x/tinyfont v0.2.1/go.mod h1:eLqnYSrFRjt5STxWaMeOWJTzrKhXqpWw7nU3bPfKOAM=
 tinygo.org/x/tinyfont v0.3.0/go.mod h1:+TV5q0KpwSGRWnN+ITijsIhrWYJkoUCp9MYELjKpAXk=
 tinygo.org/x/tinyfont v0.3.1-0.20220718115734-9b135c3a5561 h1:yz54kNGVMHWIUwtL0OiTFuI/bV3L6Zvn51NVbVyew5s=
