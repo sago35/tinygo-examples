@@ -31,33 +31,14 @@ func handleInterrupt(interrupt.Interrupt) {
 
 // SetupRTL8720DN sets up the RTL8270DN for use.
 func SetupRTL8720DN() (*rtl8720dn.RTL8720DN, error) {
-	machine.RTL8720D_CHIP_PU.Configure(machine.PinConfig{Mode: machine.PinOutput})
-	machine.RTL8720D_CHIP_PU.Low()
-	time.Sleep(100 * time.Millisecond)
-	machine.RTL8720D_CHIP_PU.High()
-	time.Sleep(1000 * time.Millisecond)
+	rtl := rtl8720dn.New(machine.UART3, machine.PB24, machine.PC24, machine.RTL8720D_CHIP_PU)
+
 	if debug {
 		waitSerial()
 	}
 
-	uart = UARTx{
-		UART: &machine.UART{
-			Buffer: machine.NewRingBuffer(),
-			Bus:    sam.SERCOM0_USART_INT,
-			SERCOM: 0,
-		},
-	}
-
-	uart.Interrupt = interrupt.New(sam.IRQ_SERCOM0_2, handleInterrupt)
-	uart.Configure(machine.UARTConfig{TX: machine.PB24, RX: machine.PC24, BaudRate: 614400})
-
-	rtl = rtl8720dn.New(uart)
 	rtl.Debug(debug)
-
-	_, err := rtl.Rpc_tcpip_adapter_init()
-	if err != nil {
-		return nil, err
-	}
+	rtl.Configure()
 
 	connected = true
 	return rtl, nil
