@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	rtl       *rtl8720dn.RTL8720DN
+	rtl       *rtl8720dn.Driver
 	connected bool
 	uart      UARTx
 	debug     bool
@@ -30,7 +30,7 @@ func handleInterrupt(interrupt.Interrupt) {
 }
 
 // SetupRTL8720DN sets up the RTL8270DN for use.
-func SetupRTL8720DN() (*rtl8720dn.RTL8720DN, error) {
+func SetupRTL8720DN() (*rtl8720dn.Driver, error) {
 	rtl := rtl8720dn.New(machine.UART3, machine.PB24, machine.PC24, machine.RTL8720D_CHIP_PU)
 
 	if debug {
@@ -45,7 +45,7 @@ func SetupRTL8720DN() (*rtl8720dn.RTL8720DN, error) {
 }
 
 // Wifi sets up the RTL8720DN and connects it to Wi-Fi.
-func Wifi(ssid, pass string, timeout time.Duration) (*rtl8720dn.RTL8720DN, error) {
+func Wifi(ssid, pass string, timeout time.Duration) (*rtl8720dn.Driver, error) {
 	_, err := SetupRTL8720DN()
 	if err != nil {
 		return nil, err
@@ -70,7 +70,7 @@ func Wifi(ssid, pass string, timeout time.Duration) (*rtl8720dn.RTL8720DN, error
 	return rtl, nil
 }
 
-func Device() *rtl8720dn.RTL8720DN {
+func Device() *rtl8720dn.Driver {
 	return rtl
 }
 
