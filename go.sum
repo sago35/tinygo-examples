@@ -96,6 +96,8 @@ tinygo.org/x/drivers v0.20.0/go.mod h1:uJD/l1qWzxzLx+vcxaW0eY464N5RAgFi1zTVzASFd
 tinygo.org/x/drivers v0.21.0/go.mod h1:uJD/l1qWzxzLx+vcxaW0eY464N5RAgFi1zTVzASFdqI=
 tinygo.org/x/drivers v0.22.0 h1:s5c0hJY8pJYojSGS5AQgauwhTuH2bBZPDqdwkBDGW+o=
 tinygo.org/x/drivers v0.22.0/go.mod h1:J4+51Li1kcfL5F93kmnDWEEzQF3bLGz0Am3Q7E2a8/E=
+tinygo.org/x/drivers v0.22.1-0.20220923030157-23e18424faf5 h1:iGN2cNPaAPkMutelF/mCWvPpDUYXfE5OTjbQsNU6lEQ=
+tinygo.org/x/drivers v0.22.1-0.20220923030157-23e18424faf5/go.mod h1:J4+51Li1kcfL5F93kmnDWEEzQF3bLGz0Am3Q7E2a8/E=
 tinygo.org/x/tinyfont v0.2.1/go.mod h1:eLqnYSrFRjt5STxWaMeOWJTzrKhXqpWw7nU3bPfKOAM=
 tinygo.org/x/tinyfont v0.3.0/go.mod h1:+TV5q0KpwSGRWnN+ITijsIhrWYJkoUCp9MYELjKpAXk=
 tinygo.org/x/tinyfont v0.3.1-0.20220718115734-9b135c3a5561 h1:yz54kNGVMHWIUwtL0OiTFuI/bV3L6Zvn51NVbVyew5s=
