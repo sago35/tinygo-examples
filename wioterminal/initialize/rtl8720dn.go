@@ -10,7 +10,6 @@ import (
 	"runtime/interrupt"
 	"time"
 
-	"tinygo.org/x/drivers/net"
 	"tinygo.org/x/drivers/net/http"
 	"tinygo.org/x/drivers/rtl8720dn"
 )
@@ -56,7 +55,6 @@ func Wifi(ssid, pass string, timeout time.Duration) (*rtl8720dn.Driver, error) {
 		return rtl, err
 	}
 
-	net.UseDriver(rtl)
 	http.UseDriver(rtl)
 	http.SetBuf(buf[:])
 
