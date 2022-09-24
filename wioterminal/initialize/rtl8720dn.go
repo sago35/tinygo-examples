@@ -31,7 +31,7 @@ func handleInterrupt(interrupt.Interrupt) {
 
 // SetupRTL8720DN sets up the RTL8270DN for use.
 func SetupRTL8720DN() (*rtl8720dn.Driver, error) {
-	rtl := rtl8720dn.New(machine.UART3, machine.PB24, machine.PC24, machine.RTL8720D_CHIP_PU)
+	rtl = rtl8720dn.New(machine.UART3, machine.PB24, machine.PC24, machine.RTL8720D_CHIP_PU)
 
 	if debug {
 		waitSerial()
