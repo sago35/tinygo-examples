@@ -11,8 +11,8 @@
 //
 // You can check that mqttpub/mqttsub is running successfully with the following command.
 //
-//	mosquitto_sub -h test.mosquitto.org -t tinygo/tx
-//	mosquitto_pub -h test.mosquitto.org -t tinygo/rx -m "hello world"
+//	mosquitto_sub -h test.mosquitto.org -t sago35/tinygo/tx
+//	mosquitto_pub -h test.mosquitto.org -t sago35/tinygo/rx -m "{"Temperature": 9.87, "Humidity": 54.32}"
 package main
 
 import (
@@ -75,7 +75,7 @@ func readTemperatureAndHumidity(sensor bme280.Device) (float64, float64) {
 }
 
 func run() error {
-	err := initialize.Wifi(ssid, password)
+	_, err := initialize.Wifi(ssid, password, 10*time.Second)
 	if err != nil {
 		return err
 	}
