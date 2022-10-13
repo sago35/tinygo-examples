@@ -5,6 +5,8 @@ jobs:
       - image: tinygo/tinygo-dev
     steps:
       - checkout
+      - run: |
+          apt install -y bluez
       - run: tinygo version
       - run:
           name: "Enforce Go Formatted Code"

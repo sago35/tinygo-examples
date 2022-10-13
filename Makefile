@@ -15,9 +15,9 @@ smoketest:
 	go build -o /tmp/test ./wioterminal/webclient
 	go build -o /tmp/test ./wioterminal/webclient/server
 	tinygo build -o /tmp/test.hex -size short -target wioterminal ./deviceid
-	go build -o /tmp/test.exe ./wioterminal/usbcdc/cmd/wio-client
+	go build -o /tmp/test ./wioterminal/usbcdc/cmd/wio-client
 	tinygo build -o /tmp/test.hex --target xiao-ble --size short ./xiao-ble/ble-led-server
-	go run ./xiao-ble/ble-led-client
+	go build -o /tmp/test ./xiao-ble/ble-led-client
 	tinygo build -o /tmp/test.hex --target xiao-ble --size short ./xiao-ble/ble-led-client
 	tinygo build -o /tmp/test.hex --target xiao-ble --size short ./xiao-ble/ble-led-client-xiao
 
