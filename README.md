@@ -16,6 +16,17 @@ https://github.com/sago35/tinygo-examples/tree/main/wioterminal/sample
 
 [![](https://img.youtube.com/vi/9IpI9rUMXOs/0.jpg)](https://www.youtube.com/watch?v=9IpI9rUMXOs)
 
+## wioterminal USB  HID Keyboard
+
+Using tinygo-keyboard, wioterminal becomes a USB HID Keyboard.  
+Keymap settings can be changed from a web browser using Vial.
+
+* [wiokey](https://github.com/sago35/tinygo-keyboard) example can also be run on wioterminal alone
+    * https://vial.rocks/
+
+![](./img/wiokey-0.1.0.jpg)
+
+
 ## wioterminal other examples
 
 There are many examples below.
@@ -34,8 +45,6 @@ There are many examples below.
     * [./wioterminal/sample/](./wioterminal/sample/)
     * [./wioterminal/usbcdc/](./wioterminal/usbcdc/)
     * [./wioterminal/webclient/](./wioterminal/webclient/)
-* USB HID Keyboard - https://github.com/sago35/tinygo-keyboard
-    * [wiokey](https://github.com/sago35/tinygo-keyboard#wiokey-010) example can also be run on wioterminal alone
 
 ## xiao-ble examples
 
