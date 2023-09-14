@@ -34,6 +34,8 @@ There are many examples below.
     * [./wioterminal/sample/](./wioterminal/sample/)
     * [./wioterminal/usbcdc/](./wioterminal/usbcdc/)
     * [./wioterminal/webclient/](./wioterminal/webclient/)
+* USB HID Keyboard - https://github.com/sago35/tinygo-keyboard
+    * [wiokey](https://github.com/sago35/tinygo-keyboard#wiokey-010) example can also be run on wioterminal alone
 
 ## xiao-ble examples
 
