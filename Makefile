@@ -20,6 +20,8 @@ smoketest:
 	go build -o /tmp/test ./xiao-ble/ble-led-client
 	tinygo build -o /tmp/test.hex --target xiao-ble --size short ./xiao-ble/ble-led-client
 	tinygo build -o /tmp/test.hex --target xiao-ble --size short ./xiao-ble/ble-led-client-xiao
+	tinygo build -o /tmp/test.hex --target xiao-ble --size short ./xiao-ble-laptimer/laptimer-xiao
+	go build -o /tmp/test ./xiao-ble-laptimer/laptimer
 
 fmt-check:
 	@unformatted=$$(gofmt -l `find . -name "*.go"`); [ -z "$$unformatted" ] && exit 0; echo "Unformatted:"; for fn in $$unformatted; do echo "  $$fn"; done; exit 1
