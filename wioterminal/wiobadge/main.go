@@ -39,6 +39,8 @@ var name_png []byte
 //go:embed qrcode_x.png
 var qrcode_x_png []byte
 
+var button1 machine.Pin
+
 func run() error {
 	display = initdisplay.InitDisplay()
 
@@ -49,9 +51,7 @@ func run() error {
 
 	display.FillScreen(black)
 
-	machine.WIO_KEY_A.Configure(machine.PinConfig{Mode: machine.PinInputPullup})
-	machine.WIO_KEY_B.Configure(machine.PinConfig{Mode: machine.PinInputPullup})
-	machine.WIO_KEY_C.Configure(machine.PinConfig{Mode: machine.PinInputPullup})
+	button1.Configure(machine.PinConfig{Mode: machine.PinInputPullup})
 
 	var err error
 	err = drawPng(display, name_png)
@@ -61,7 +61,7 @@ func run() error {
 
 	state := 0
 	for {
-		if !machine.WIO_KEY_C.Get() {
+		if !button1.Get() {
 			state = 1 - state
 			switch state {
 			case 0:
