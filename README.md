@@ -55,6 +55,10 @@ This is a Demo using Bluetooth.
 
 [![](https://img.youtube.com/vi/HWBxuMbNUTI/0.jpg)](https://www.youtube.com/watch?v=HWBxuMbNUTI)
 
+* [./xiao-ble-laptimer/](./xiao-ble-laptimer/)
+
+![](./xiao-ble-laptimer/xiao-ble-laptimer.jpg)
+
 
 
 ## wioterminal initialize
